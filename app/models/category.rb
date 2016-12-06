@@ -1,3 +1,3 @@
 class Category < ActiveRecord::Base
-  has_many :views
+  has_many :notes
 end

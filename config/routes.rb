@@ -77,7 +77,7 @@ Rails.application.routes.draw do
 
   # READ
   get "/categories", :controller => "categories", :action => "index"
-  get "/categories/:id", :controller => "categories", :action => "show"
+  get "/categories/:id", :controller => "notes", :action => "show_category"
 
   # UPDATE
   get "/categories/:id/edit", :controller => "categories", :action => "edit"

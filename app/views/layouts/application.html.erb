@@ -83,10 +83,19 @@
         </form>
       </ul>
       <ul class="nav nav-sidebar">
-        <li><a href="#">Overview </a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="#">Analytics</a></li>
-        <li><a href="#">Export</a></li>
+        <li><a href="/">All Notes</a></li>
+        <li><a href="#">Dashboard</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <form class="navbar-form navbar-center">
+          <a href="/categories/new" class="btn btn-info">Add Category</a>
+        </form>
+      </ul>
+      <% @categories = Category.all %>
+      <ul class="nav nav-sidebar">
+      <% @categories.order("created_at DESC").each do |category| %>
+          <li><a href="/categories/<%= category.id %>"><%= category.name %></a></li>
+      <% end %>
       </ul>
     </div>
 

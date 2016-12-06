@@ -1,9 +1,19 @@
 class NotesController < ApplicationController
   def index
     @notes = Note.all
+    @views = View.all
 
     render("notes/index.html.erb")
   end
+
+  def show_category
+    @notes = Note.all
+    @views = View.all
+    @category = Category.find(params[:id])
+    render("notes/category.html.erb")
+  end
+
+
 
   def show
     @note = Note.find(params[:id])
