@@ -19,13 +19,13 @@
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
       <!-- Label and input for parent_id -->
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="parent_id" class="control-label">
           Parent
         </label>
 
         <input type="text" id="parent_id" name="parent_id" placeholder="Parent" class="form-control" value="<%= @note.parent_id %>">
-      </div>
+      </div> -->
 
       <!-- Label and input for title -->
       <div class="form-group">
@@ -41,26 +41,7 @@
         <label for="body" class="control-label">
           Body
         </label>
-
-        <input type="text" id="body" name="body" placeholder="Body" class="form-control" value="<%= @note.body %>">
-      </div>
-
-      <!-- Label and input for user_id -->
-      <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
-
-        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @note.user_id %>">
-      </div>
-
-      <!-- Label and input for category_id -->
-      <div class="form-group">
-        <label for="category_id" class="control-label">
-          Category
-        </label>
-
-        <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @note.category_id %>">
+        <textarea id="body" name="body" placeholder="Body" class="form-control" rows="4"><%= @note.body %></textarea>
       </div>
 
       <!-- Label and input for view_id -->
@@ -69,8 +50,39 @@
           View
         </label>
 
-        <input type="text" id="view_id" name="view_id" placeholder="View" class="form-control" value="<%= @note.view_id %>">
+        <%= select_tag(:view_id, options_from_collection_for_select(View.all, :id, :name, @note.view_id), :class => "form-control") %>
+        <p class="help-block">
+          <a href="/views/new">or add a new view</a>
+        </p>
       </div>
+
+      <!-- Label and input for category_id -->
+      <div class="form-group">
+        <label for="category_id" class="control-label">
+          Category
+        </label>
+
+        <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @note.category_id), :class => "form-control") %>
+        <p class="help-block">
+          <a href="/categories/new">or add a new category</a>
+        </p>
+      </div>
+      <!-- name of column trying to populate, array to draw options for, what you want to store in x_id, what you want them to see, what you want to be pre-selected -->
+
+      <!-- Label and input for tag -->
+      <!-- <div class="form-group">
+        <label for="tagname_id" class="control-label">
+          Tag
+        </label>
+
+        <%= select_tag(:tagname_id, options_from_collection_for_select(Tagname.all, :id, :name, 1), :class => "form-control") %>
+        <p class="help-block">
+          <a href="/tagnames/new">or add a new tag</a>
+        </p>
+      </div> -->
+
+      <!-- Input for user_id -->
+      <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
 
       <button class="btn btn-success">
         Create Note
