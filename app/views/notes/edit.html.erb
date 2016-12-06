@@ -1,0 +1,82 @@
+<!-- Validation failure messages -->
+<% if @note.errors.any? %>
+  <% @note.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Note #<%= @note.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_note/<%= @note.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for parent_id -->
+      <div class="form-group">
+        <label for="parent_id" class="control-label">
+          Parent
+        </label>
+
+        <input type="text" id="parent_id" name="parent_id" placeholder="Parent" class="form-control" value="<%= @note.parent_id %>">
+      </div>
+
+      <!-- Label and input for title -->
+      <div class="form-group">
+        <label for="title" class="control-label">
+          Title
+        </label>
+
+        <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="<%= @note.title %>">
+      </div>
+
+      <!-- Label and input for body -->
+      <div class="form-group">
+        <label for="body" class="control-label">
+          Body
+        </label>
+
+        <input type="text" id="body" name="body" placeholder="Body" class="form-control" value="<%= @note.body %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @note.user_id %>">
+      </div>
+
+      <!-- Label and input for category_id -->
+      <div class="form-group">
+        <label for="category_id" class="control-label">
+          Category
+        </label>
+
+        <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @note.category_id %>">
+      </div>
+
+      <!-- Label and input for view_id -->
+      <div class="form-group">
+        <label for="view_id" class="control-label">
+          View
+        </label>
+
+        <input type="text" id="view_id" name="view_id" placeholder="View" class="form-control" value="<%= @note.view_id %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Note
+      </button>
+      or
+      <a href="/notes/<%= @note.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

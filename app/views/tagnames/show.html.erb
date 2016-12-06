@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h3>Tagname #<%= @tagname.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Parent</dt>
+      <dd><%= @tagname.parent_id %></dd>
+
+      <dt>Name</dt>
+      <dd><%= @tagname.name %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/tagnames" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/tagnames/<%= @tagname.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_tagname/<%= @tagname.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

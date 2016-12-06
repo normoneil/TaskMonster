@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1>
+    Tagnames
+    <a href="/tagnames/new" class="btn btn-lg btn-success">New Tagname</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Parent</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @tagnames.each do |tagname| %>
+      <tr>
+        <td><%= tagname.parent_id %></td>
+        <td><%= tagname.name %></td>
+        <td>
+          <a href="/tagnames/<%= tagname.id %>" class="btn btn-primary">Show</a>
+          <a href="/tagnames/<%= tagname.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_tagname/<%= tagname.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

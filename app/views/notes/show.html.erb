@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h3>Note #<%= @note.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Parent</dt>
+      <dd><%= @note.parent_id %></dd>
+
+      <dt>Title</dt>
+      <dd><%= @note.title %></dd>
+
+      <dt>Body</dt>
+      <dd><%= @note.body %></dd>
+
+      <dt>User</dt>
+      <dd><%= @note.user_id %></dd>
+
+      <dt>Category</dt>
+      <dd><%= @note.category_id %></dd>
+
+      <dt>View</dt>
+      <dd><%= @note.view_id %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/notes" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/notes/<%= @note.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_note/<%= @note.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
