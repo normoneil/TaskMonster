@@ -38,12 +38,35 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/notes">Notes</a></li>
-        <li><a href="/tagnames">Tagnames</a></li>
-        <li><a href="/tags">Tags</a></li>
-        <li><a href="/views">Views</a></li>
-        <li><a href="/categories">Categories</a></li>
-        <li><a href="/rails/info">Sitemap</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Create <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/categories/new">Category</a></li>
+            <li><a href="/views/new">View</a></li>
+            <li><a href="/tags/new">Tag</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/tagnames">Tagnames</a></li>
+            <li><a href="/tags">Tags</a></li>
+            <li><a href="/views">Views</a></li>
+            <li><a href="/categories">Categories</a></li>
+            <li><a href="/rails/info">Sitemap</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
       </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
       <ul class="nav navbar-nav navbar-right">
         <% if current_user == nil %>
         <li>
@@ -67,9 +90,6 @@
         </li>
         <% end %>
       </ul>
-      <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search...">
-      </form>
     </div><!-- /.navbar-collapse -->
   </div>
 </nav>
@@ -85,17 +105,18 @@
       <ul class="nav nav-sidebar">
         <li><a href="/">All Notes</a></li>
         <li><a href="#">Dashboard</a></li>
+        <li class="divider"></li>
       </ul>
-      <ul class="nav nav-sidebar">
-        <form class="navbar-form navbar-center">
-          <a href="/categories/new" class="btn btn-info">Add Category</a>
-        </form>
-      </ul>
+
       <% @categories = Category.all %>
       <ul class="nav nav-sidebar">
-      <% @categories.order("created_at DESC").each do |category| %>
-          <li><a href="/categories/<%= category.id %>"><%= category.name %></a></li>
-      <% end %>
+        <form class="navbar-form navbar-center">
+        <li class="active">Categories</li>
+        <li><a href="#">(Show Tags)</a></li>
+        </form>
+        <% @categories.order("created_at DESC").each do |category| %>
+          <li><a href="/categories/<%= category.id %>"><%= category.name %> <span class="badge"><%= category.notes.count %></span></a></li>
+          <% end %>
       </ul>
     </div>
 

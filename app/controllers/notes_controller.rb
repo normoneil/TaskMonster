@@ -13,6 +13,17 @@ class NotesController < ApplicationController
     render("notes/category.html.erb")
   end
 
+  def update_view
+    @note = Note.find(params[:id])
+    @note.view_id = params[:view_id]
+    save_status = @note.save
+
+    if save_status == true
+      redirect_to("/")
+    else
+     redirect_to("/", :notice => "Note failed.")
+    end
+  end
 
 
   def show
@@ -40,11 +51,12 @@ class NotesController < ApplicationController
     save_status = @note.save
 
     if save_status == true
-      redirect_to("/notes/#{@note.id}", :notice => "Note created successfully.")
+      redirect_to("/", :notice => "Note created successfully.")
     else
       render("notes/new.html.erb")
     end
   end
+
 
   def edit
     @note = Note.find(params[:id])

@@ -18,6 +18,9 @@
       <tr>
         <td><%= category.parent_id %></td>
         <td><%= category.name %></td>
+        <% category.notes.each do |note| %>
+          <td><%= note.title %></td>
+        <% end %>
         <td>
           <a href="/categories/<%= category.id %>" class="btn btn-primary">Show</a>
           <a href="/categories/<%= category.id %>/edit" class="btn btn-warning">Edit</a>

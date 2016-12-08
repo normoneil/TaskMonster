@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   root 'notes#index'
 
+
+  post "/notes/:id/update_view", :controller => "notes", :action => "update_view"
+
+
   # Routes for the Note resource:
   # CREATE
   get "/notes/new", :controller => "notes", :action => "new"
