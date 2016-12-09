@@ -43,7 +43,7 @@ class ViewsController < ApplicationController
     save_status = @view.save
 
     if save_status == true
-      redirect_to("/views/#{@view.id}", :notice => "View updated successfully.")
+      redirect_to("/views/", :notice => "View updated successfully.")
     else
       render("views/edit.html.erb")
     end
