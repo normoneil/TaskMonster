@@ -25,6 +25,11 @@ class NotesController < ApplicationController
     end
   end
 
+  def dashboard
+    @notes = Note.all
+    render("notes/dashboard.html.erb")
+  end
+
   def update_category_view
     @category = Category.find(params[:categoryid])
     @note = Note.find(params[:noteid])

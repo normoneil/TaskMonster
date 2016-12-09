@@ -40,23 +40,21 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Create <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <li><a href="/notes/new">Notes</a></li>
             <li><a href="/categories/new">Category</a></li>
             <li><a href="/views/new">View</a></li>
             <li><a href="/tagnames/new">Tag</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <!-- <li class="divider"></li> -->
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/tagnames">Tagnames</a></li>
-            <li><a href="/tags">Tags</a></li>
-            <li><a href="/views">Views</a></li>
             <li><a href="/categories">Categories</a></li>
-            <li><a href="/rails/info">Sitemap</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="/views">Views</a></li>
+            <li><a href="/tags">Tags</a></li>
+            <li><a href="/tagnames">Tagnames</a></li>
+            <!-- <li class="divider"></li> -->
           </ul>
         </li>
       </ul>
@@ -102,17 +100,15 @@
         </form>
       </ul>
       <ul class="nav nav-sidebar">
-        <li><a href="/">All Notes</a></li>
-        <li><a href="#">Dashboard</a></li>
-        <li class="divider"></li>
+        <% @notes = Note.all %>
+        <li><a href="/">All Notes <% if @notes.count != 0 %><span class="badge"><%= @notes.count %> note<% if @notes.count != 1 %>s<% end %></span><% end %></a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/categories">All Categories</a></li>
+        <li><a href="/views">All Views</a></li>
       </ul>
 
       <% @categories = Category.all %>
       <ul class="nav nav-sidebar">
-        <form class="navbar-form navbar-center">
-        <li class="active">Categories</li>
-        <li><a href="#">(Show Tags)</a></li>
-        </form>
         <% @categories.order(:name).each do |category| %>
           <li><a href="/categories/<%= category.id %>"><%= category.name %> <% if category.notes.count != 0 %><span class="badge"><%= category.notes.count %> note<% if category.notes.count != 1 %>s<% end %></span><% end %></a></li>
           <% end %>

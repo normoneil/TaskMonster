@@ -9,14 +9,12 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
-        <th>Parent</th>
         <th>Name</th>
         <th>Actions</th>
       </tr>
 
       <% @categories.each do |category| %>
       <tr>
-        <td><%= category.parent_id %></td>
         <td><%= category.name %></td>
         <td>
           <a href="/categories/<%= category.id %>" class="btn btn-primary">Show</a>

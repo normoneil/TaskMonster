@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'notes#index'
 
   post "/notes/:id/update_view", :controller => "notes", :action => "update_view"
-  # post "/categories/:categoryid/:noteid/update_view", :controller => "notes", :action => "update_category_view"
+  get "/dashboard", :controller => "notes", :action => "dashboard"
 
   # Routes for the Note resource:
   # CREATE

@@ -19,13 +19,11 @@ class ViewsController < ApplicationController
 
   def create
     @view = View.new
-
     @view.name = params[:name]
-
     save_status = @view.save
 
     if save_status == true
-      redirect_to("views/index.html.erb", :notice => "View created successfully.")
+      redirect_to("/views/", :notice => "View created successfully.")
     else
       render("views/new.html.erb")
     end
@@ -53,13 +51,16 @@ class ViewsController < ApplicationController
 
   def destroy
     @view = View.find(params[:id])
-
-    @view.destroy
-
-    if URI(request.referer).path == "/views/#{@view.id}"
-      redirect_to("/", :notice => "View deleted.")
+    if @view.notes.count != 0
+      redirect_to("/views", :notice => "Cannot delete: a Note exists in this view!")
     else
-      redirect_to(:back, :notice => "View deleted.")
+      @view.destroy
+
+      if URI(request.referer).path == "/views/#{@view.id}"
+        redirect_to("/", :notice => "View deleted.")
+      else
+        redirect_to(:back, :notice => "View deleted.")
+      end
     end
   end
 end

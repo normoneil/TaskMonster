@@ -19,14 +19,11 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new
-
-    @category.parent_id = params[:parent_id]
     @category.name = params[:name]
-
     save_status = @category.save
 
     if save_status == true
-      redirect_to("/categories/index.html.erb", :notice => "Category created successfully.")
+      redirect_to("/categories/", :notice => "Category created successfully.")
     else
       render("categories/new.html.erb")
     end
@@ -55,13 +52,16 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-
-    @category.destroy
-
-    if URI(request.referer).path == "/categories/#{@category.id}"
-      redirect_to("/", :notice => "Category deleted.")
+    if @category.notes.count != 0
+      redirect_to("/categories", :notice => "Cannot delete: a Note exists in this category!")
     else
-      redirect_to(:back, :notice => "Category deleted.")
+      @category.destroy
+
+      if URI(request.referer).path == "/categories/#{@category.id}"
+        redirect_to("/", :notice => "Category deleted.")
+      else
+        redirect_to(:back, :notice => "Category deleted.")
+      end
     end
   end
 end
