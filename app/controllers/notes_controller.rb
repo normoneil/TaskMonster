@@ -44,6 +44,10 @@ class NotesController < ApplicationController
 
   end
 
+  # def search
+  #   @search = Note.search(params[:search])
+  #       render("notes/search.html.erb")
+  # end
 
 
   def show
