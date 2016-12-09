@@ -37,13 +37,12 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/notes">Notes</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Create <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="/categories/new">Category</a></li>
             <li><a href="/views/new">View</a></li>
-            <li><a href="/tags/new">Tag</a></li>
+            <li><a href="/tagnames/new">Tag</a></li>
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
           </ul>
@@ -114,8 +113,8 @@
         <li class="active">Categories</li>
         <li><a href="#">(Show Tags)</a></li>
         </form>
-        <% @categories.order("created_at DESC").each do |category| %>
-          <li><a href="/categories/<%= category.id %>"><%= category.name %> <span class="badge"><%= category.notes.count %></span></a></li>
+        <% @categories.order(:name).each do |category| %>
+          <li><a href="/categories/<%= category.id %>"><%= category.name %> <% if category.notes.count != 0 %><span class="badge"><%= category.notes.count %> note<% if category.notes.count != 1 %>s<% end %></span><% end %></a></li>
           <% end %>
       </ul>
     </div>

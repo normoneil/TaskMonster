@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root 'notes#index'
 
-
   post "/notes/:id/update_view", :controller => "notes", :action => "update_view"
-
+  # post "/categories/:categoryid/:noteid/update_view", :controller => "notes", :action => "update_category_view"
 
   # Routes for the Note resource:
   # CREATE

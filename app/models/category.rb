@@ -1,3 +1,8 @@
 class Category < ActiveRecord::Base
-  has_many :notes
+
+    validates :name, :presence => true
+    validates :name, :uniqueness => { :case_sensitive => false }
+
+    has_many :notes
+
 end

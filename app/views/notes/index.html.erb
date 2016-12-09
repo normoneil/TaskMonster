@@ -1,51 +1,58 @@
 <div class="row">
   <div class="col-md-12">
+    <h2><% if @category != NIL %><%= @category.name %><% else %>All <% end %> Notes</h2>
     <% @views.each do |view| %>
       <div class="btn-group">
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#<%= view.name %>" aria-expanded="true" aria-controls="collapseExample">
-          <%= view.name %>&nbsp;&nbsp;<span class="badge"><%= view.notes.count %> item<% if view.notes.count != 1 %>s<% end %></span>
+          <%= view.name %>&nbsp;&nbsp;<% if view.notes.count != 0 && @category == NIL %><span class="badge"><%= view.notes.count %> note<% if view.notes.count != 1 %>s<% end %></span><% end %>
         </button>
         <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
+          <li><a href="/views/<%= view.id %>/edit">Edit</a></li>
+          <li><a href="/views/<%= view.id %>">Show</a></li>
           <li class="divider"></li>
-          <li><a href="#">Separated link</a></li>
+          <li><a href="/views">Show All Views</a></li>
         </ul>
       </div>
       <div class="collapse in" id="<%= view.name %>">
         <div class="card card-block">
           <table class="table table-striped table-hover">
             <tr>
-              <th width="25%">Title</th>
-              <!-- <th width="20%">Body</th> -->
-              <th width="10%">Category</th>
-              <th width="20%">Created
-              <th width="35%">Actions</th>
+              <th width="45%">Title</th>
+              <th width="5%">Category</th>
+              <th width="5%">Created</th>
+              <th width="5%"></th>
+              <th width="20%">View</th>
+              <th width="20%">Actions</th>
             </tr>
-            <% view.notes.each do |note| %>
+            <% view.notes.order("created_at DESC").each do |note| %>
+              <% if current_user.id == note.user_id %>
+              <% if @category == NIL || note.category_id == @category.id  %>
               <tr>
-                  <td width="20%"><%= note.title %></td>
+                <td width="45%"><a href="/notes/<%= note.id %>"><%= note.title %></a></td>
                   <!-- <td width="20%"><%= truncate(note.body) %></td> -->
-                  <td width="10%"><%= note.category.name %></td>
-                  <td width="20%"><%= note.created_at %><small>, <%= time_ago_in_words(note.created_at) %> ago</small></td>
-                  <td width="35%">
-                    <form action="/notes/<%= note.id %>/update_view" method="post">
-                      <!-- Hidden input for authenticity token to protect from forgery -->
-                      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-                      <%= select_tag(:view_id, options_from_collection_for_select(View.all, :id, :name, note.view_id), :class => "form-control", :style => "max-width:50%;") %>
+                  <td width="5%"><a href="/categories/<%= note.category %>"><%= note.category.name %></td>
+                  <td width="5%"><%= time_ago_in_words(note.created_at) %> ago</small></td>
+                  <form action="/notes/<%= note.id %>/update_view" method="post">
+                    <!-- Hidden input for authenticity token to protect from forgery -->
+                    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+                  <td width="5%">
                       <button class="btn btn-success">
                           Update
                         </button>
-    
+                      </td>
+                  <td width="20%">
+                        <%= select_tag(:view_id, options_from_collection_for_select(View.all, :id, :name, note.view_id), :class => "form-control", :style => "max-width:50%;") %>
+                  </td>
+                  </form>
+                  <td width="20%">
                     <a href="/notes/<%= note.id %>" class="btn btn-primary">Show</a>
                     <a href="/notes/<%= note.id %>/edit" class="btn btn-warning">Edit</a>
                     <a href="/delete_note/<%= note.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-                  </form>
-
                   </td>
                 </tr>
+            <% end %>
+            <% end %>
             <% end %>
           </table>
         </div>

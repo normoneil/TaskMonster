@@ -2,7 +2,7 @@ class NotesController < ApplicationController
   def index
     @notes = Note.all
     @views = View.all
-
+    @category = NIL
     render("notes/index.html.erb")
   end
 
@@ -10,7 +10,7 @@ class NotesController < ApplicationController
     @notes = Note.all
     @views = View.all
     @category = Category.find(params[:id])
-    render("notes/category.html.erb")
+    render("notes/index.html.erb")
   end
 
   def update_view
@@ -21,9 +21,24 @@ class NotesController < ApplicationController
     if save_status == true
       redirect_to("/")
     else
-     redirect_to("/", :notice => "Note failed.")
+     redirect_to("/", :notice => "View Update failed.")
     end
   end
+
+  def update_category_view
+    @category = Category.find(params[:categoryid])
+    @note = Note.find(params[:noteid])
+    @note.view_id = params[:view_id]
+    save_status = @note.save
+
+    if save_status == true
+      redirect_to("/")
+    else
+     redirect_to("/", :notice => "View Update failed.")
+    end
+
+  end
+
 
 
   def show

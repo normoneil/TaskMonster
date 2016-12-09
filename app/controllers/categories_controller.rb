@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
     save_status = @category.save
 
     if save_status == true
-      redirect_to("/categories/#{@category.id}", :notice => "Category created successfully.")
+      redirect_to("/categories/index.html.erb", :notice => "Category created successfully.")
     else
       render("categories/new.html.erb")
     end

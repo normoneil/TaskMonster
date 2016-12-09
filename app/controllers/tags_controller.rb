@@ -26,7 +26,7 @@ class TagsController < ApplicationController
     save_status = @tag.save
 
     if save_status == true
-      redirect_to("/tags/#{@tag.id}", :notice => "Tag created successfully.")
+      redirect_to("/tags/index.html.erb", :notice => "Tag created successfully.")
     else
       render("tags/new.html.erb")
     end

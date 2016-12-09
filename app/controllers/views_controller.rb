@@ -25,7 +25,7 @@ class ViewsController < ApplicationController
     save_status = @view.save
 
     if save_status == true
-      redirect_to("/views/#{@view.id}", :notice => "View created successfully.")
+      redirect_to("views/index.html.erb", :notice => "View created successfully.")
     else
       render("views/new.html.erb")
     end
